@@ -1,2 +1,2 @@
-# ripplectron
+# Ripplectron
 ripple wallet for electron
