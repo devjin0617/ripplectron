@@ -8,6 +8,12 @@ import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 
+import { RippleAPI } from 'ripple-lib'
+
+const api = new RippleAPI({ server: 'wss://s1.ripple.com:443' })
+
+Vue.prototype.$ripple = api
+
 Vue.use(ElementUI)
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))

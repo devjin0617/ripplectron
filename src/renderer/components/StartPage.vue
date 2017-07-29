@@ -5,8 +5,8 @@
         Repplectron (Ripple Wallet)
       </div>
       <div>
-        <el-button type="primary">Create Wallet</el-button>
-        <el-button type="primary">Get the Wallet</el-button>
+        <el-button type="primary" @click="createWallet">Create Wallet</el-button>
+        <el-button type="primary" @click="loadWallet">Get the Wallet</el-button>
       </div>
     </div>
   </div>
@@ -14,7 +14,34 @@
 
 <script>
   export default {
-    name: 'start-page'
+    name: 'start-page',
+    methods: {
+      createWallet () {
+        this.$message('create!')
+      },
+      loadWallet () {
+        this.$prompt('Please input your Ripple Secret key', 'get address', {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel'
+        }).then(params => {
+          // this.$message({
+          //   type: 'success',
+          //   message: 'Your email is:' + value
+          // })
+
+          this.$ripple.connect().then(() => {
+            this.$ripple.getBalances(params.value).then(balances => {
+              console.log(balances)
+            })
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: 'Input canceled'
+          })
+        })
+      }
+    }
   }
 </script>
 
