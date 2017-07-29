@@ -2,6 +2,9 @@
 
 > An electron-vue project
 
+![start](https://github.com/devjin0617/ripplectron/blob/master/images/image_0.png?raw=true)
+![wallet](https://github.com/devjin0617/ripplectron/blob/master/images/image_1.png?raw=true)
+
 #### Build Setup
 
 ``` bash
