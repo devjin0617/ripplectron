@@ -17,7 +17,14 @@
   padding: 0;
 }
 
-body { font-family: 'Source Sans Pro', sans-serif; }
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+body, #app {
+  height: 100vh;
+  width: 100vw;
+}
 
 .flex-container {
   display:flex;

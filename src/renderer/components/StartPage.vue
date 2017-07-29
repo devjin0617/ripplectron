@@ -13,43 +13,49 @@
 </template>
 
 <script>
-  export default {
-    name: 'start-page',
-    methods: {
-      createWallet () {
-        this.$message('create!')
-      },
-      loadWallet () {
-        this.$prompt('Please input your Ripple Secret key', 'get address', {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel'
-        }).then(params => {
-          // this.$message({
-          //   type: 'success',
-          //   message: 'Your email is:' + value
-          // })
+import { mapActions } from 'vuex'
 
-          this.$ripple.connect().then(() => {
-            this.$ripple.getBalances(params.value).then(balances => {
-              console.log(balances)
-            })
-          })
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: 'Input canceled'
-          })
+export default {
+  name: 'start-page',
+  created () {
+    this.Loading(false)
+  },
+  mounted () {
+    this.Loading(false)
+  },
+  methods: {
+    ...mapActions([
+      'setAddress'
+    ]),
+    createWallet () {
+      console.log(this.$router)
+      this.$router.replace('wallet')
+    },
+    loadWallet () {
+      this.$prompt('Please input your Ripple Secret key', 'get address', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel'
+      }).then(params => {
+        this.setAddress({
+          address: params.value
         })
-      }
+        this.$router.replace('wallet')
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: 'Input canceled'
+        })
+      })
     }
   }
+}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .wrapper {
   background-color:#324057;
-  height: 100vh;
-  width: 100vw;
+  width:100%;
+  height:100%;
   color: white;
 
   .title {

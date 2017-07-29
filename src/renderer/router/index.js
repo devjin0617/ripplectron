@@ -11,9 +11,9 @@ export default new Router({
       component: require('@/components/StartPage')
     },
     {
-      path: '/',
-      name: 'landing-page',
-      component: require('@/components/LandingPage')
+      path: '/wallet',
+      name: 'wallet-page',
+      component: require('@/components/WalletPage')
     },
     {
       path: '*',

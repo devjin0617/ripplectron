@@ -16,6 +16,18 @@ const api = new RippleAPI({ server: 'wss://s1.ripple.com:443' })
 
 Vue.prototype.$ripple = api
 
+let loadingData = null
+Vue.prototype.Loading = (isLoading) => {
+  if (isLoading) {
+    loadingData = ElementUI.Loading.service({
+      fullscreen: true
+    })
+  } else {
+    if (loadingData) {
+      loadingData.close()
+    }
+  }
+}
 Vue.use(VueI18n)
 Vue.use(ElementUI)
 
