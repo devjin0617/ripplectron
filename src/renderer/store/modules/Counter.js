@@ -17,8 +17,11 @@ const mutations = {
     state.wallet.address = ''
     state.wallet.secret = ''
   },
-  SET_ADDRESS (state, params) {
+  SET_WALLET (state, params) {
     state.wallet.address = params.address
+    if (params.secret) {
+      state.wallet.secret = params.secret
+    }
   }
 }
 
@@ -30,14 +33,14 @@ const actions = {
   reset ({ commit }) {
     commit('RESET')
   },
-  setAddress ({ commit }, params) {
-    commit('SET_ADDRESS', params)
+  setWallet ({ commit }, params) {
+    commit('SET_WALLET', params)
   }
 }
 
 const getters = {
-  getAddress: state => {
-    return state.wallet.address
+  getWallet: state => {
+    return state.wallet
   }
 }
 

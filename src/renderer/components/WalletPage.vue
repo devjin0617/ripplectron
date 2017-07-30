@@ -3,7 +3,8 @@
     <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item index="1">Balance</el-menu-item>
       <el-menu-item index="2">Send</el-menu-item>
-      <el-menu-item index="3" class="danger-item">Remove Wallet</el-menu-item>
+      <el-menu-item index="3">Get Secret</el-menu-item>
+      <el-menu-item index="4" class="danger-item">Remove Wallet</el-menu-item>
     </el-menu>
     <div class="content">
       <div class="flex-container middle center fill">
@@ -17,7 +18,7 @@
           </div>
           <div class="space"></div>
           <div>
-            <span>Public Address: {{ getAddress }}</span>
+            <span>Public Address: {{ getWallet.address }}</span>
           </div>
         </div>
       </div>
@@ -26,7 +27,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import sha256 from 'sha256'
+import aes256 from 'aes256'
 
 export default {
   name: 'wallet-page',
@@ -38,13 +41,13 @@ export default {
   },
   created () {
     this.Loading(false)
-    if (!this.getAddress) {
+    if (!this.getWallet.address) {
       this.$router.replace('home')
     }
   },
   mounted () {
     this.Loading(false)
-    if (!this.getAddress) {
+    if (!this.getWallet.address) {
       this.$router.replace('home')
       return
     }
@@ -52,10 +55,13 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getAddress'
+      'getWallet'
     ])
   },
   methods: {
+    ...mapActions([
+      'reset'
+    ]),
     handleSelect (index) {
       switch (index) {
         case '1':
@@ -65,6 +71,23 @@ export default {
           // send
           break
         case '3':
+          // Get Secret
+          this.$prompt('Please input your Crypto key', 'Get Secret', {
+            confirmButtonText: 'OK',
+            cancelButtonText: 'Cancel',
+            inputPattern: /^[\w]{6,32}$/,
+            inputErrorMessage: 'Number or String (Enter more than 6~32 characters)'
+          }).then(params => {
+            let cryptoHash = sha256(params.value)
+            let secret = aes256.decrypt(cryptoHash, this.getWallet.secret)
+            this.$alert(secret, 'Secret', {
+              confirmButtonText: 'OK'
+            })
+          }).catch(() => {
+
+          })
+          break
+        case '4':
           // remove
           this.removeWallet()
           break
@@ -74,9 +97,23 @@ export default {
       this.Loading(true)
       this.balance = '-'
       this.$ripple.connect().then(() => {
-        this.$ripple.getBalances(this.getAddress).then(balances => {
+        this.$ripple.getBalances(this.getWallet.address).then(balances => {
+          console.log(balances)
           this.balance = balances[0].value
           this.Loading(false)
+        }).catch(err => {
+          if (err.name === 'RippledError') {
+            this.balance = 0
+            this.Loading(false)
+          } else {
+            this.$message('not found account', 'error', {
+              confirmButtonText: 'OK',
+              callback: () => {
+                this.reset()
+                this.$router.replace('home')
+              }
+            })
+          }
         })
       })
     },
@@ -100,6 +137,7 @@ export default {
           message: 'removed!',
           type: 'error'
         })
+        this.reset()
         this.$router.replace('home')
       })
       .catch(() => {
