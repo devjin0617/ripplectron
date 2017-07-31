@@ -16,6 +16,11 @@ export default new Router({
       component: require('@/components/WalletPage')
     },
     {
+      path: '/send',
+      name: 'send-page',
+      component: require('@/components/SendPage')
+    },
+    {
       path: '*',
       redirect: '/'
     }

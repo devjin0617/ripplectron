@@ -1,11 +1,6 @@
 <template>
   <div class="wrapper">
-    <el-menu theme="dark" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-      <el-menu-item index="1">Balance</el-menu-item>
-      <el-menu-item index="2">Send</el-menu-item>
-      <el-menu-item index="3">Get Secret</el-menu-item>
-      <el-menu-item index="4" class="danger-item">Remove Wallet</el-menu-item>
-    </el-menu>
+    <navi-bar :active-index="'1'"></navi-bar>
     <div class="content">
       <div class="flex-container middle center fill">
         <div class="text-center">
@@ -27,9 +22,10 @@
 </template>
 
 <script>
+import NaviBar from './NaviBar'
 import { mapGetters, mapActions } from 'vuex'
-import sha256 from 'sha256'
-import aes256 from 'aes256'
+// import sha256 from 'sha256'
+// import aes256 from 'aes256'
 
 export default {
   name: 'wallet-page',
@@ -38,6 +34,9 @@ export default {
       activeIndex: '1',
       balance: '-'
     }
+  },
+  components: {
+    'navi-bar': NaviBar
   },
   created () {
     this.Loading(false)
@@ -62,37 +61,6 @@ export default {
     ...mapActions([
       'reset'
     ]),
-    handleSelect (index) {
-      switch (index) {
-        case '1':
-          // balance
-          break
-        case '2':
-          // send
-          break
-        case '3':
-          // Get Secret
-          this.$prompt('Please input your Crypto key', 'Get Secret', {
-            confirmButtonText: 'OK',
-            cancelButtonText: 'Cancel',
-            inputPattern: /^[\w]{6,32}$/,
-            inputErrorMessage: 'Number or String (Enter more than 6~32 characters)'
-          }).then(params => {
-            let cryptoHash = sha256(params.value)
-            let secret = aes256.decrypt(cryptoHash, this.getWallet.secret)
-            this.$alert(secret, 'Secret', {
-              confirmButtonText: 'OK'
-            })
-          }).catch(() => {
-
-          })
-          break
-        case '4':
-          // remove
-          this.removeWallet()
-          break
-      }
-    },
     reload () {
       this.Loading(true)
       this.balance = '-'
@@ -152,14 +120,6 @@ export default {
 .wrapper {
   width:100%;
   height:100%;
-}
-.danger-item {
-  float:right;
-  color:#FF4949;
-
-  &:hover {
-    border-bottom: 5px solid #FF4949;
-  }
 }
 .content {
   margin-top:-60px;
