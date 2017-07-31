@@ -64,6 +64,33 @@ export default {
           this.removeWallet()
           break
       }
+    },
+    removeWallet () {
+      const h = this.$createElement
+      this.$msgbox({
+        title: 'Warning',
+        message: h(
+          'div', null, [
+            h('p', null, 'Are you sure you want to delete your wallet?'),
+            h('p', null, '(You can recover it even after deleting it.)')
+          ]
+        ),
+        showCancelButton: true,
+        confirmButtonText: 'Remove',
+        confirmButtonClass: 'el-button--danger',
+        cancelButtonText: 'Cancel'
+      })
+      .then(() => {
+        this.$message({
+          message: 'removed!',
+          type: 'error'
+        })
+        this.reset()
+        this.$router.replace('home')
+      })
+      .catch(() => {
+
+      })
     }
   }
 }

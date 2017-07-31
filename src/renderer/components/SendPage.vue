@@ -25,7 +25,7 @@
                 </el-form>
               </el-form-item>
             </el-form>
-            <el-button type="primary">Send</el-button>
+            <el-button type="primary" @click="payment">Send</el-button>
           </div>
         </div>
       </div>
@@ -36,6 +36,8 @@
 <script>
 import NaviBar from './NaviBar'
 import { mapGetters } from 'vuex'
+import sha256 from 'sha256'
+import aes256 from 'aes256'
 
 export default {
   name: 'send-page',
@@ -57,6 +59,72 @@ export default {
     ...mapGetters([
       'getWallet'
     ])
+  },
+  methods: {
+    sendXRP () {
+      this.$confirm('Ready to XRP send?', 'Send', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel'
+      }).then(params => {
+        this.payment()
+      })
+    },
+    payment () {
+      let payment = {
+        source: {
+          address: this.getWallet.address,
+          maxAmount: {
+            value: this.formData.xrp,
+            currency: 'XRP'
+          }
+        },
+        destination: {
+          address: this.formData.address,
+          tag: undefined,
+          amount: {
+            value: this.formData.xrp,
+            currency: 'XRP'
+          }
+        }
+      }
+
+      if (this.formData.isTag && this.formData.tag) {
+        payment.destination.tag = this.formData.tag
+      }
+
+      // const instructions = {
+      //   maxLedgerVersionOffset: 5
+      // }
+
+      this.$prompt('Please input your Crypto key', 'Get Secret', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        inputPattern: /^[\w]{6,32}$/,
+        inputErrorMessage: 'Number or String (Enter more than 6~32 characters)'
+      }).then(params => {
+        let cryptoHash = sha256(params.value)
+        let secret = aes256.decrypt(cryptoHash, this.getWallet.secret)
+        this.$ripple.connect().then(() => {
+          this.$ripple.preparePayment(this.getWallet.address, payment).then(prepared => {
+            console.log('prepared', prepared)
+            const { signedTransaction } = this.$ripple.sign(prepared.txJSON, secret)
+            console.log('signedTransaction', signedTransaction)
+            this.$ripple.submit(signedTransaction).then((test) => {
+              console.log('test', test)
+              this.$message('success!', 'success', {
+                confirmButtonText: 'OK'
+              })
+            }).catch(() => {
+              this.$message('send fail!', 'error', {
+                confirmButtonText: 'OK'
+              })
+            })
+          })
+        })
+      }).catch(() => {
+
+      })
+    }
   }
 }
 </script>
