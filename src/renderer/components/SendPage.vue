@@ -17,10 +17,10 @@
               <el-form-item>
                 <el-form :inline="true" label-position="top">
                   <el-form-item class="input-xrp" label="XRP">
-                    <el-input v-model="formData.xrp"></el-input>
+                    <el-input v-model="formData.xrp" @blur="onBlur('xrp')"></el-input>
                   </el-form-item>
                   <el-form-item class="input-money" label="Money">
-                    <el-input v-model="formData.money"></el-input>
+                    <el-input v-model="formData.money" @blur="onBlur('money')"></el-input>
                   </el-form-item>
                 </el-form>
               </el-form-item>
@@ -61,6 +61,14 @@ export default {
     ])
   },
   methods: {
+    onBlur (key) {
+      console.log('onBlur:', key)
+      if (key === 'xrp') {
+        this.formData.money = this.formData.xrp * 198
+      } else {
+        this.formData.xrp = this.formData.money / 198
+      }
+    },
     sendXRP () {
       this.$confirm('Ready to XRP send?', 'Send', {
         confirmButtonText: 'OK',
@@ -92,9 +100,9 @@ export default {
         payment.destination.tag = this.formData.tag
       }
 
-      // const instructions = {
-      //   maxLedgerVersionOffset: 5
-      // }
+      const instructions = {
+        maxLedgerVersionOffset: 5
+      }
 
       this.$prompt('Please input your Crypto key', 'Get Secret', {
         confirmButtonText: 'OK',
@@ -105,7 +113,7 @@ export default {
         let cryptoHash = sha256(params.value)
         let secret = aes256.decrypt(cryptoHash, this.getWallet.secret)
         this.$ripple.connect().then(() => {
-          this.$ripple.preparePayment(this.getWallet.address, payment).then(prepared => {
+          this.$ripple.preparePayment(this.getWallet.address, payment, instructions).then(prepared => {
             console.log('prepared', prepared)
             const { signedTransaction } = this.$ripple.sign(prepared.txJSON, secret)
             console.log('signedTransaction', signedTransaction)
