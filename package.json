@@ -1,6 +1,6 @@
 {
   "name": "ripplectron",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "devjin0617 <devjin0617@gmail.com>",
   "description": "An electron-vue project",
   "license": null,
@@ -55,6 +55,7 @@
   "dependencies": {
     "aes256": "^1.0.2",
     "axios": "^0.16.1",
+    "electron-store": "^1.2.0",
     "element-ui": "^1.4.1",
     "node-sass": "^4.5.3",
     "ripple-lib": "^0.17.7",

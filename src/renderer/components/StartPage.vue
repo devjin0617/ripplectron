@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import sha256 from 'sha256'
 import aes256 from 'aes256'
 
@@ -24,6 +24,14 @@ export default {
   },
   mounted () {
     this.Loading(false)
+    if (this.getWallet.address) {
+      this.$router.replace('wallet')
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'getWallet'
+    ])
   },
   methods: {
     ...mapActions([

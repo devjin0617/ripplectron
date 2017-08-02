@@ -1,3 +1,6 @@
+import Store from 'electron-store'
+const store = new Store()
+
 const state = {
   main: 0,
   wallet: {
@@ -16,12 +19,20 @@ const mutations = {
   RESET (state) {
     state.wallet.address = ''
     state.wallet.secret = ''
+    store.delete('address')
+    store.delete('secret')
   },
   SET_WALLET (state, params) {
     state.wallet.address = params.address
+    store.set('address', params.address)
     if (params.secret) {
       state.wallet.secret = params.secret
+      store.set('secret', params.secret)
     }
+  },
+  FETCH_WALLET (state) {
+    state.wallet.address = store.get('address')
+    state.wallet.secret = store.get('secret')
   }
 }
 
@@ -35,6 +46,9 @@ const actions = {
   },
   setWallet ({ commit }, params) {
     commit('SET_WALLET', params)
+  },
+  fetchWallet ({ commit }) {
+    commit('FETCH_WALLET')
   }
 }
 
