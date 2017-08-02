@@ -2,6 +2,7 @@
 
 > An electron-vue project
 
+![icon](https://github.com/devjin0617/ripplectron/blob/master/images/icon.png?raw=true)
 ![start](https://github.com/devjin0617/ripplectron/blob/master/images/image_0.png?raw=true)
 ![wallet](https://github.com/devjin0617/ripplectron/blob/master/images/image_1.png?raw=true)
 
