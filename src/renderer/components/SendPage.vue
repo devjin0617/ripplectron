@@ -78,7 +78,10 @@ export default {
   computed: {
     ...mapGetters([
       'getWallet'
-    ])
+    ]),
+    regex () {
+      return new RegExp(/^r[rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz]{27,35}$/)
+    }
   },
   methods: {
     onBlur (key) {
@@ -116,10 +119,22 @@ export default {
         }
       }
 
+      if (payment.destination.address.match(this.regex)) {
+        this.$message({
+          message: 'Plaese input a valid address',
+          type: 'error'
+        })
+        return
+      }
+
       if (this.formData.isTag) {
         if (this.formData.tag) {
           payment.destination.tag = parseInt(this.formData.tag)
         } else {
+          this.$message({
+            message: 'Please input destination tag',
+            type: 'error'
+          })
           return
         }
       }
