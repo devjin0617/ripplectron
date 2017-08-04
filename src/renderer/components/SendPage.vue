@@ -4,22 +4,22 @@
       <div class="content">
         <div class="flex-container middle center fill">
           <div class="text-center">
-            <el-form label-position="top" label-width="100px" :model="formData">
-              <el-form-item label="Receive XRP Address">
+            <el-form label-position="top" label-width="100px" :model="formData" :rules="rules">
+              <el-form-item label="Receive XRP Address" prop="address">
                 <el-input v-model="formData.address"></el-input>
               </el-form-item>
-              <el-form-item label="using destination tag" prop="delivery">
+              <el-form-item label="using destination tag" prop="isTag">
                 <el-switch on-text="" off-text="" v-model="formData.isTag"></el-switch>
               </el-form-item>
-              <el-form-item label="destination tag" v-show="formData.isTag">
+              <el-form-item label="destination tag" v-show="formData.isTag" prop="tag">
                 <el-input v-model="formData.tag"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-form :inline="true" label-position="top">
-                  <el-form-item class="input-xrp" label="XRP">
+                <el-form :inline="true" label-position="top" :model="formData" :rule="rules">
+                  <el-form-item class="input-xrp" label="XRP" prop="xrp">
                     <el-input v-model="formData.xrp" @blur="onBlur('xrp')"></el-input>
                   </el-form-item>
-                  <el-form-item class="input-money" label="Money">
+                  <el-form-item class="input-money" label="Money" prop="money">
                     <el-input v-model="formData.money" @blur="onBlur('money')"></el-input>
                   </el-form-item>
                 </el-form>
@@ -42,6 +42,14 @@ import aes256 from 'aes256'
 export default {
   name: 'send-page',
   data () {
+    const validatePass = (rule, value, callback) => {
+      console.log('validatePass')
+      if (value.match(new RegExp(/^r[rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz]{27,35}$/))) {
+        callback()
+      } else {
+        callback(new Error('Please input a valid address'))
+      }
+    }
     return {
       formData: {
         address: '',
@@ -49,6 +57,18 @@ export default {
         tag: '',
         xrp: '',
         money: ''
+      },
+      rules: {
+        address: [
+          { required: true, message: 'Please input Ripple Address', trigger: 'blur' },
+          { validator: validatePass, trigger: 'change' }
+        ],
+        xrp: [
+          { required: true, message: 'Please input XRP', trigger: 'blur' }
+        ],
+        money: [
+          { required: true, message: 'Please input money', trigger: 'blur' }
+        ]
       }
     }
   },
@@ -62,12 +82,12 @@ export default {
   },
   methods: {
     onBlur (key) {
-      console.log('onBlur:', key)
-      if (key === 'xrp') {
-        this.formData.money = this.formData.xrp * 198
-      } else {
-        this.formData.xrp = this.formData.money / 198
-      }
+      // console.log('onBlur:', key)
+      // if (key === 'xrp') {
+      //   this.formData.money = this.formData.xrp * 198
+      // } else {
+      //   this.formData.xrp = this.formData.money / 198
+      // }
     },
     sendXRP () {
       this.$confirm('Ready to XRP send?', 'Send', {
@@ -96,8 +116,12 @@ export default {
         }
       }
 
-      if (this.formData.isTag && this.formData.tag) {
-        payment.destination.tag = parseInt(this.formData.tag)
+      if (this.formData.isTag) {
+        if (this.formData.tag) {
+          payment.destination.tag = parseInt(this.formData.tag)
+        } else {
+          return
+        }
       }
 
       const instructions = {
