@@ -97,7 +97,7 @@ export default {
       }
 
       if (this.formData.isTag && this.formData.tag) {
-        payment.destination.tag = this.formData.tag
+        payment.destination.tag = parseInt(this.formData.tag)
       }
 
       const instructions = {
