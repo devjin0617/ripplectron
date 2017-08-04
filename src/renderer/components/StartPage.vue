@@ -2,7 +2,7 @@
   <div class="wrapper flex-container middle center">
     <div>
       <div class="title">
-        Repplectron (Ripple Wallet)
+        {{ $t("StartPage.title") }}
       </div>
       <div>
         <el-button type="primary" @click="createWallet">Create Wallet</el-button>

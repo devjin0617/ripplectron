@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 
 import VueI18n from 'vue-i18n'
+import messages from './lang'
 
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
@@ -30,6 +31,10 @@ Vue.prototype.Loading = (isLoading) => {
 }
 Vue.use(VueI18n)
 Vue.use(ElementUI)
+const i18n = new VueI18n({
+  locale: 'ko',
+  messages
+})
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
@@ -42,5 +47,6 @@ new Vue({
   components: { App },
   router,
   store,
+  i18n,
   template: '<App/>'
 }).$mount('#app')
