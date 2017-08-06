@@ -1,9 +1,9 @@
 <template>
   <el-menu theme="dark" :default-active="navIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-    <el-menu-item index="1">Balance</el-menu-item>
-    <el-menu-item index="2">Send</el-menu-item>
-    <el-menu-item index="3">Get Secret</el-menu-item>
-    <el-menu-item index="4" class="danger-item">Remove Wallet</el-menu-item>
+    <el-menu-item index="1">{{ $t('COMMON.BALANCE') }}</el-menu-item>
+    <el-menu-item index="2">{{ $t('COMMON.SEND') }}</el-menu-item>
+    <el-menu-item index="3">{{ $t('COMMON.GET_SECRET') }}</el-menu-item>
+    <el-menu-item index="4" class="danger-item">{{ $t('COMMON.REMOVE_WALLET') }}</el-menu-item>
   </el-menu>
 </template>
 
@@ -44,15 +44,15 @@ export default {
           break
         case '3':
           // Get Secret
-          this.$prompt('Please input your Crypto key', 'Get Secret', {
+          this.$prompt(this.$i18n.t('COMMON.CONFIRM.INPUT_CRYPTO_KEY.DESCRIPTION'), this.$i18n.t('COMMON.CONFIRM.INPUT_CRYPTO_KEY.TITLE'), {
             confirmButtonText: this.$i18n.t('COMMON.OK'),
             cancelButtonText: this.$i18n.t('COMMON.CANCEL'),
             inputPattern: /^[\w]{6,32}$/,
-            inputErrorMessage: 'Number or String (Enter more than 6~32 characters)'
+            inputErrorMessage: this.$i18n.t('COMMON.CONFIRM.INPUT_CRYPTO_KEY.VALIDATION.TEXT')
           }).then(params => {
             let cryptoHash = sha256(params.value)
             let secret = aes256.decrypt(cryptoHash, this.getWallet.secret)
-            this.$alert(secret, 'Secret', {
+            this.$alert(secret, this.$i18n.t('COMMON.SECRET'), {
               confirmButtonText: this.$i18n.t('COMMON.OK')
             })
           }).catch(() => {
@@ -68,21 +68,21 @@ export default {
     removeWallet () {
       const h = this.$createElement
       this.$msgbox({
-        title: 'Warning',
+        title: this.$i18n.t('COMMON.CONFIRM.REMOVE_WALLET.TITLE'),
         message: h(
           'div', null, [
-            h('p', null, 'Are you sure you want to delete your wallet?'),
-            h('p', null, '(You can recover it even after deleting it.)')
+            h('p', null, this.$i18n.t('COMMON.CONFIRM.REMOVE_WALLET.DESCRIPTION[0]')),
+            h('p', null, this.$i18n.t('COMMON.CONFIRM.REMOVE_WALLET.DESCRIPTION[1]'))
           ]
         ),
         showCancelButton: true,
-        confirmButtonText: 'Remove',
+        confirmButtonText: this.$i18n.t('COMMON.REMOVE'),
         confirmButtonClass: 'el-button--danger',
-        cancelButtonText: 'Cancel'
+        cancelButtonText: this.$i18n.t('COMMON.CANCEL')
       })
       .then(() => {
         this.$message({
-          message: 'removed!',
+          message: this.$i18n.t('COMMON.MESSAGE.REMOVED'),
           type: 'error'
         })
         this.reset()
