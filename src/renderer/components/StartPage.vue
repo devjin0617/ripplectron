@@ -2,11 +2,11 @@
   <div class="wrapper flex-container middle center">
     <div>
       <div class="title">
-        {{ $t("StartPage.title") }}
+        {{ $t('START_PAGE.TITLE') }}
       </div>
       <div>
-        <el-button type="primary" @click="createWallet">Create Wallet</el-button>
-        <el-button type="primary" @click="loadWallet">Get the Wallet</el-button>
+        <el-button type="primary" @click="createWallet">{{ $t('START_PAGE.BUTTON.CREATE') }}</el-button>
+        <el-button type="primary" @click="loadWallet">{{ $t('START_PAGE.BUTTON.OPEN') }}</el-button>
       </div>
     </div>
   </div>
@@ -38,15 +38,16 @@ export default {
       'setWallet'
     ]),
     createWallet () {
-      this.$confirm('Would you like to make a wallet?', 'Create Wallet', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel'
+      console.log(this.$i18n.t('CONFIRM.CREATE_WALLET.DESCRIPTION'))
+      this.$confirm(this.$i18n.t('CONFIRM.CREATE_WALLET.DESCRIPTION'), this.$i18n.t('CONFIRM.CREATE_WALLET.TITLE'), {
+        confirmButtonText: this.$i18n.t('COMMON.OK'),
+        cancelButtonText: this.$i18n.t('COMMON.CANCEL')
       }).then(params => {
-        this.$prompt('Please input your Crypto key (not Secret key)', 'Encryption', {
-          confirmButtonText: 'OK',
+        this.$prompt(this.$i18n.t('CONFIRM.INPUT_CRYPTO_KEY.DESCRIPTION'), this.$i18n.t('CONFIRM.INPUT_CRYPTO_KEY_TITLE'), {
+          confirmButtonText: this.$i18n.t('COMMON.OK'),
           showCancelButton: false,
           inputPattern: /^[\w]{6,32}$/,
-          inputErrorMessage: 'Number or String (Enter more than 6~32 characters)'
+          inputErrorMessage: this.$i18n.t('CONFIRM.INPUT_CRYPTO_KEY.VALIDATION.TEXT')
         }).then(params => {
           let cryptoValue = params.value
           const account = this.$ripple.generateAddress()
@@ -54,15 +55,15 @@ export default {
           const text = h('div', null, [
             h('p', null, 'Wallet Created.'),
             h('p', null, [
-              h('span', null, 'Public address: '),
+              h('span', null, `${this.$i18n.t('COMMON.PUBLIC_ADDRESS')}: `),
               h('span', null, account.address)
             ]),
             h('p', null, [
-              h('span', null, 'Wallet secret: '),
+              h('span', null, `${this.$i18n.t('COMMON.WALLET')} ${this.$i18n.t('COMMON.SECRET')}: `),
               h('span', {style: 'color:#FF4949'}, account.secret)
             ]),
             h('p', null, [
-              h('span', null, 'Crypto key: '),
+              h('span', null, `${this.$i18n.t('COMMON.SECRET')}: `),
               h('span', {style: 'color:#FF4949'}, cryptoValue)
             ])
           ])
@@ -72,7 +73,7 @@ export default {
             secret: aes256.encrypt(cryptoHash, account.secret)
           })
           this.$alert(text, 'Success!', {
-            confirmButtonText: 'OK',
+            confirmButtonText: this.$i18n.t('COMMON.OK'),
             callback: action => {
               this.$router.replace('wallet')
             }
@@ -88,17 +89,17 @@ export default {
         secret: ''
       }
       this.$prompt('Please input your Ripple Public Address', 'Get Wallet', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel'
+        confirmButtonText: this.$i18n.t('COMMON.OK'),
+        cancelButtonText: this.$i18n.t('COMMON.CANCEL')
       }).then(params => {
         account.address = params.value
         this.$prompt('Please input your Ripple Secret', 'Get Wallet', {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel'
+          confirmButtonText: this.$i18n.t('COMMON.OK'),
+          cancelButtonText: this.$i18n.t('COMMON.CANCEL')
         }).then(params => {
           account.secret = params.value
           this.$prompt('Please input your Crypto key (not Secret key)', 'Encryption', {
-            confirmButtonText: 'OK',
+            confirmButtonText: this.$i18n.t('COMMON.OK'),
             showCancelButton: false,
             inputPattern: /^[\w]{6,32}$/,
             inputErrorMessage: 'Number or String (Enter more than 6~32 characters)'

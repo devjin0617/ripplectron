@@ -45,15 +45,15 @@ export default {
         case '3':
           // Get Secret
           this.$prompt('Please input your Crypto key', 'Get Secret', {
-            confirmButtonText: 'OK',
-            cancelButtonText: 'Cancel',
+            confirmButtonText: this.$i18n.t('COMMON.OK'),
+            cancelButtonText: this.$i18n.t('COMMON.CANCEL'),
             inputPattern: /^[\w]{6,32}$/,
             inputErrorMessage: 'Number or String (Enter more than 6~32 characters)'
           }).then(params => {
             let cryptoHash = sha256(params.value)
             let secret = aes256.decrypt(cryptoHash, this.getWallet.secret)
             this.$alert(secret, 'Secret', {
-              confirmButtonText: 'OK'
+              confirmButtonText: this.$i18n.t('COMMON.OK')
             })
           }).catch(() => {
 

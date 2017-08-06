@@ -75,7 +75,7 @@ export default {
             this.Loading(false)
           } else {
             this.$message('not found account', 'error', {
-              confirmButtonText: 'OK',
+              confirmButtonText: this.$i18n.t('COMMON.OK'),
               callback: () => {
                 this.reset()
                 this.$router.replace('home')

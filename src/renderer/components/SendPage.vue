@@ -61,7 +61,7 @@ export default {
       rules: {
         address: [
           { required: true, message: 'Please input Ripple Address', trigger: 'blur' },
-          { validator: validatePass, trigger: 'change' }
+          { validator: validatePass, trigger: 'blur' }
         ],
         xrp: [
           { required: true, message: 'Please input XRP', trigger: 'blur' }
@@ -94,8 +94,8 @@ export default {
     },
     sendXRP () {
       this.$confirm('Ready to XRP send?', 'Send', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel'
+        confirmButtonText: this.$i18n.t('COMMON.OK'),
+        cancelButtonText: this.$i18n.t('COMMON.CANCEL')
       }).then(params => {
         this.payment()
       })
@@ -119,7 +119,7 @@ export default {
         }
       }
 
-      if (payment.destination.address.match(this.regex)) {
+      if (!payment.destination.address.match(this.regex)) {
         this.$message({
           message: 'Plaese input a valid address',
           type: 'error'
@@ -144,8 +144,8 @@ export default {
       }
 
       this.$prompt('Please input your Crypto key', 'Get Secret', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
+        confirmButtonText: this.$i18n.t('COMMON.OK'),
+        cancelButtonText: this.$i18n.t('COMMON.CANCEL'),
         inputPattern: /^[\w]{6,32}$/,
         inputErrorMessage: 'Number or String (Enter more than 6~32 characters)'
       }).then(params => {
@@ -159,11 +159,11 @@ export default {
             this.$ripple.submit(signedTransaction).then((test) => {
               console.log('test', test)
               this.$message('success!', 'success', {
-                confirmButtonText: 'OK'
+                confirmButtonText: this.$i18n.t('COMMON.OK')
               })
             }).catch(() => {
               this.$message('send fail!', 'error', {
-                confirmButtonText: 'OK'
+                confirmButtonText: this.$i18n.t('COMMON.OK')
               })
             })
           })

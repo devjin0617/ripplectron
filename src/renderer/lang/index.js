@@ -1,12 +1,7 @@
+import en from './locale/en'
+import ko from './locale/ko'
+
 export default {
-  en: {
-    StartPage: {
-      title: 'Repplectron (Ripple Wallet)'
-    }
-  },
-  ko: {
-    StartPage: {
-      title: 'Ripplectron (리플 지갑)'
-    }
-  }
+  en: en,
+  ko: ko
 }
