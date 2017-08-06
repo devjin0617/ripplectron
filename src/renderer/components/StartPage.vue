@@ -38,16 +38,16 @@ export default {
       'setWallet'
     ]),
     createWallet () {
-      console.log(this.$i18n.t('CONFIRM.CREATE_WALLET.DESCRIPTION'))
-      this.$confirm(this.$i18n.t('CONFIRM.CREATE_WALLET.DESCRIPTION'), this.$i18n.t('CONFIRM.CREATE_WALLET.TITLE'), {
+      console.log(this.$i18n.t('COMMON.CONFIRM.CREATE_WALLET.DESCRIPTION'))
+      this.$confirm(this.$i18n.t('COMMON.CONFIRM.CREATE_WALLET.DESCRIPTION'), this.$i18n.t('COMMON.CONFIRM.CREATE_WALLET.TITLE'), {
         confirmButtonText: this.$i18n.t('COMMON.OK'),
         cancelButtonText: this.$i18n.t('COMMON.CANCEL')
       }).then(params => {
-        this.$prompt(this.$i18n.t('CONFIRM.INPUT_CRYPTO_KEY.DESCRIPTION'), this.$i18n.t('CONFIRM.INPUT_CRYPTO_KEY_TITLE'), {
+        this.$prompt(this.$i18n.t('COMMON.CONFIRM.INPUT_CRYPTO_KEY.DESCRIPTION'), this.$i18n.t('COMMON.CONFIRM.INPUT_CRYPTO_KEY.TITLE'), {
           confirmButtonText: this.$i18n.t('COMMON.OK'),
           showCancelButton: false,
           inputPattern: /^[\w]{6,32}$/,
-          inputErrorMessage: this.$i18n.t('CONFIRM.INPUT_CRYPTO_KEY.VALIDATION.TEXT')
+          inputErrorMessage: this.$i18n.t('COMMON.CONFIRM.INPUT_CRYPTO_KEY.VALIDATION.TEXT')
         }).then(params => {
           let cryptoValue = params.value
           const account = this.$ripple.generateAddress()
@@ -88,21 +88,21 @@ export default {
         address: '',
         secret: ''
       }
-      this.$prompt('Please input your Ripple Public Address', 'Get Wallet', {
+      this.$prompt(this.$i18n.t('COMMON.CONFIRM.INPUT_PUBLIC_ADDRESS.DESCRIPTION'), this.$i18n.t('COMMON.CONFIRM.INPUT_PUBLIC_ADDRESS.TITLE'), {
         confirmButtonText: this.$i18n.t('COMMON.OK'),
         cancelButtonText: this.$i18n.t('COMMON.CANCEL')
       }).then(params => {
         account.address = params.value
-        this.$prompt('Please input your Ripple Secret', 'Get Wallet', {
+        this.$prompt(this.$i18n.t('COMMON.CONFIRM.INPUT_SECRET.DESCRIPTION'), this.$i18n.t('COMMON.CONFIRM.INPUT_SECRET.TITLE'), {
           confirmButtonText: this.$i18n.t('COMMON.OK'),
           cancelButtonText: this.$i18n.t('COMMON.CANCEL')
         }).then(params => {
           account.secret = params.value
-          this.$prompt('Please input your Crypto key (not Secret key)', 'Encryption', {
+          this.$prompt(this.$i18n.t('COMMON.CONFIRM.INPUT_CRYPTO_KEY.DESCRIPTION'), this.$i18n.t('COMMON.CONFIRM.INPUT_CRYPTO_KEY.TITLE'), {
             confirmButtonText: this.$i18n.t('COMMON.OK'),
             showCancelButton: false,
             inputPattern: /^[\w]{6,32}$/,
-            inputErrorMessage: 'Number or String (Enter more than 6~32 characters)'
+            inputErrorMessage: this.$i18n.t('COMMON.CONFIRM.INPUT_CRYPTO_KEY.VALIDATION.TEXT')
           }).then(params => {
             let cryptoHash = sha256(params.value)
             this.setWallet({
