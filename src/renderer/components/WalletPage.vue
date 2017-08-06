@@ -4,16 +4,16 @@
     <div class="content">
       <div class="flex-container middle center fill">
         <div class="text-center">
-          <h3>Balance</h3>
+          <h3>{{ $t('COMMON.BALANCE') }}</h3>
           <div class="space"></div>
           <h1>{{ balance }} <span v-if="balance != '-'" class="unit">XRP</span></h1>
           <div class="space"></div>
           <div>
-            <el-button type="primary" @click="reload">Reload Balance</el-button>
+            <el-button type="primary" @click="reload">{{ $t('WALLET_PAGE.RELOAD_BALANCE') }}</el-button>
           </div>
           <div class="space"></div>
           <div>
-            <span>Public Address: {{ getWallet.address }}</span>
+            <span>{{ $t('COMMON.PUBLIC_ADDRESS') }}: {{ getWallet.address }}</span>
           </div>
         </div>
       </div>
