@@ -47,6 +47,10 @@ export default {
           '현재 저장되어 있는 리플지갑을 삭제하시겠습니까?',
           '(나중에 필요할 때 언제든지 다시 불러올 수 있습니다.)'
         ]
+      },
+      SEND_COIN: {
+        TITLE: 'Send',
+        DESCRIPTION: 'Ready to XRP send?'
       }
     }
   },
@@ -66,7 +70,10 @@ export default {
     DESTINATION_TAG: 'destination 태그',
     MONEY: '돈',
     VALIDATION: {
-      EMPTY_INPUT: '공개 주소를 다시 확인해주세요.'
+      EMPTY_INPUT: '공개 주소를 다시 확인해주세요.',
+      CHECK_ADDRESS: '리플 공개 주소를 입력해주세요.',
+      CHECK_XRP: '전송할 XRP를 입력해주세요.',
+      CHECK_MONEY: '금액을 확인해주세요.'
     }
   }
 }

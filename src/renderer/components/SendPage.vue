@@ -60,14 +60,14 @@ export default {
       },
       rules: {
         address: [
-          { required: true, message: 'Please input Ripple Address', trigger: 'blur' },
+          { required: true, message: this.$i18n.t('SEND_PAGE.VALIDATION.CHECK_ADDRESS'), trigger: 'blur' },
           { validator: validatePass, trigger: 'blur' }
         ],
         xrp: [
-          { required: true, message: 'Please input XRP', trigger: 'blur' }
+          { required: true, message: this.$i18n.t('SEND_PAGE.VALIDATION.CHECK_XRP'), trigger: 'blur' }
         ],
         money: [
-          { required: true, message: 'Please input money', trigger: 'blur' }
+          { required: true, message: this.$i18n.t('SEND_PAGE.VALIDATION.CHECK_MONEY'), trigger: 'blur' }
         ]
       }
     }
@@ -93,7 +93,7 @@ export default {
       // }
     },
     sendXRP () {
-      this.$confirm('Ready to XRP send?', 'Send', {
+      this.$confirm(this.$i18n.t('COMMON.CONFIRM.SEND_COIN.DESCRIPTION'), this.$i18n.t('COMMON.CONFIRM.SEND_COIN.TITLE'), {
         confirmButtonText: this.$i18n.t('COMMON.OK'),
         cancelButtonText: this.$i18n.t('COMMON.CANCEL')
       }).then(params => {
