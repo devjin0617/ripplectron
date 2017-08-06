@@ -5,13 +5,13 @@
         <div class="flex-container middle center fill">
           <div class="text-center">
             <el-form label-position="top" label-width="100px" :model="formData" :rules="rules">
-              <el-form-item label="Receive XRP Address" prop="address">
+              <el-form-item :label="$t('SEND_PAGE.DESTINATION_ADDRESS')" prop="address">
                 <el-input v-model="formData.address"></el-input>
               </el-form-item>
-              <el-form-item label="using destination tag" prop="isTag">
+              <el-form-item :label="$t('SEND_PAGE.IS_TAG_TEXT')" prop="isTag">
                 <el-switch on-text="" off-text="" v-model="formData.isTag"></el-switch>
               </el-form-item>
-              <el-form-item label="destination tag" v-show="formData.isTag" prop="tag">
+              <el-form-item :label="$t('SEND_PAGE.DESTINATION_TAG')" v-show="formData.isTag" prop="tag">
                 <el-input v-model="formData.tag"></el-input>
               </el-form-item>
               <el-form-item>
@@ -19,13 +19,13 @@
                   <el-form-item class="input-xrp" label="XRP" prop="xrp">
                     <el-input v-model="formData.xrp" @blur="onBlur('xrp')"></el-input>
                   </el-form-item>
-                  <el-form-item class="input-money" label="Money" prop="money">
+                  <el-form-item class="input-money" :label="$t('SEND_PAGE.MONEY')" prop="money">
                     <el-input v-model="formData.money" @blur="onBlur('money')"></el-input>
                   </el-form-item>
                 </el-form>
               </el-form-item>
             </el-form>
-            <el-button type="primary" @click="payment">Send</el-button>
+            <el-button type="primary" @click="payment">{{ $t('COMMON.SEND') }}</el-button>
           </div>
         </div>
       </div>
@@ -47,7 +47,7 @@ export default {
       if (value.match(new RegExp(/^r[rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz]{27,35}$/))) {
         callback()
       } else {
-        callback(new Error('Please input a valid address'))
+        callback(new Error(this.$i18n.t('SEND_PAGE.VALIDATION.EMPTY_INPUT')))
       }
     }
     return {
@@ -121,7 +121,7 @@ export default {
 
       if (!payment.destination.address.match(this.regex)) {
         this.$message({
-          message: 'Plaese input a valid address',
+          message: this.$i18n.t('SEND_PAGE.VALIDATION.EMPTY_INPUT'),
           type: 'error'
         })
         return
@@ -143,11 +143,11 @@ export default {
         maxLedgerVersionOffset: 5
       }
 
-      this.$prompt('Please input your Crypto key', 'Get Secret', {
+      this.$prompt(this.$i18n.t('COMMON.CONFIRM.INPUT_CRYPTO_KEY.DESCRIPTION'), this.$i18n.t('COMMON.CONFIRM.INPUT_CRYPTO_KEY.TITLE'), {
         confirmButtonText: this.$i18n.t('COMMON.OK'),
         cancelButtonText: this.$i18n.t('COMMON.CANCEL'),
         inputPattern: /^[\w]{6,32}$/,
-        inputErrorMessage: 'Number or String (Enter more than 6~32 characters)'
+        inputErrorMessage: this.$i18n.t('COMMON.CONFIRM.INPUT_CRYPTO_KEY.VALIDATION.TEXT')
       }).then(params => {
         let cryptoHash = sha256(params.value)
         let secret = aes256.decrypt(cryptoHash, this.getWallet.secret)
