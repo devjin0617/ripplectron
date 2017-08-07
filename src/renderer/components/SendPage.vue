@@ -1,40 +1,35 @@
 <template>
-  <div class="wrapper">
-    <navi-bar :active-index="'2'"></navi-bar>
-      <div class="content">
-        <div class="flex-container middle center fill">
-          <div class="text-center">
-            <el-form label-position="top" label-width="100px" :model="formData" :rules="rules">
-              <el-form-item :label="$t('SEND_PAGE.DESTINATION_ADDRESS')" prop="address">
-                <el-input v-model="formData.address"></el-input>
+  <div class="content">
+    <div class="flex-container middle center fill">
+      <div class="text-center">
+        <el-form label-position="top" label-width="100px" :model="formData" :rules="rules">
+          <el-form-item :label="$t('SEND_PAGE.DESTINATION_ADDRESS')" prop="address">
+            <el-input v-model="formData.address"></el-input>
+          </el-form-item>
+          <el-form-item :label="$t('SEND_PAGE.IS_TAG_TEXT')" prop="isTag">
+            <el-switch on-text="" off-text="" v-model="formData.isTag"></el-switch>
+          </el-form-item>
+          <el-form-item :label="$t('SEND_PAGE.DESTINATION_TAG')" v-show="formData.isTag" prop="tag">
+            <el-input v-model="formData.tag"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-form :inline="true" label-position="top" :model="formData" :rule="rules">
+              <el-form-item class="input-xrp" label="XRP" prop="xrp">
+                <el-input v-model="formData.xrp" @blur="onBlur('xrp')"></el-input>
               </el-form-item>
-              <el-form-item :label="$t('SEND_PAGE.IS_TAG_TEXT')" prop="isTag">
-                <el-switch on-text="" off-text="" v-model="formData.isTag"></el-switch>
-              </el-form-item>
-              <el-form-item :label="$t('SEND_PAGE.DESTINATION_TAG')" v-show="formData.isTag" prop="tag">
-                <el-input v-model="formData.tag"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-form :inline="true" label-position="top" :model="formData" :rule="rules">
-                  <el-form-item class="input-xrp" label="XRP" prop="xrp">
-                    <el-input v-model="formData.xrp" @blur="onBlur('xrp')"></el-input>
-                  </el-form-item>
-                  <el-form-item class="input-money" :label="$t('SEND_PAGE.MONEY')" prop="money">
-                    <el-input v-model="formData.money" @blur="onBlur('money')"></el-input>
-                  </el-form-item>
-                </el-form>
+              <el-form-item class="input-money" :label="$t('SEND_PAGE.MONEY')" prop="money">
+                <el-input v-model="formData.money" @blur="onBlur('money')"></el-input>
               </el-form-item>
             </el-form>
-            <el-button type="primary" @click="payment">{{ $t('COMMON.SEND') }}</el-button>
-          </div>
-        </div>
+          </el-form-item>
+        </el-form>
+        <el-button type="primary" @click="payment">{{ $t('COMMON.SEND') }}</el-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import NaviBar from './NaviBar'
 import { mapGetters } from 'vuex'
 import sha256 from 'sha256'
 import aes256 from 'aes256'
@@ -72,9 +67,6 @@ export default {
       }
     }
   },
-  components: {
-    'navi-bar': NaviBar
-  },
   computed: {
     ...mapGetters([
       'getWallet'
@@ -85,12 +77,12 @@ export default {
   },
   methods: {
     onBlur (key) {
-      // console.log('onBlur:', key)
-      // if (key === 'xrp') {
-      //   this.formData.money = this.formData.xrp * 198
-      // } else {
-      //   this.formData.xrp = this.formData.money / 198
-      // }
+      console.log('onBlur:', key)
+      if (key === 'xrp') {
+        this.formData.money = this.formData.xrp * 198
+      } else {
+        this.formData.xrp = this.formData.money / 198
+      }
     },
     sendXRP () {
       this.$confirm(this.$i18n.t('COMMON.CONFIRM.SEND_COIN.DESCRIPTION'), this.$i18n.t('COMMON.CONFIRM.SEND_COIN.TITLE'), {
@@ -190,8 +182,7 @@ export default {
   }
 }
 .content {
-  margin-top:-60px;
-  padding-top:60px;
+  margin-top:60px;
   height:100%;
 
   .fill {

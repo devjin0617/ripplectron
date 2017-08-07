@@ -13,7 +13,7 @@ import sha256 from 'sha256'
 import aes256 from 'aes256'
 
 export default {
-  name: 'navi-bar',
+  name: 'navigation-bar',
   props: ['active-index'],
   data () {
     return {
@@ -40,7 +40,7 @@ export default {
           break
         case '2':
           // send
-          this.$router.replace('send')
+          this.$router.replace('wallet/send')
           break
         case '3':
           // Get Secret

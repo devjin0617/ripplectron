@@ -1,20 +1,17 @@
 <template>
-  <div class="wrapper">
-    <navi-bar :active-index="'1'"></navi-bar>
-    <div class="content">
-      <div class="flex-container middle center fill">
-        <div class="text-center">
-          <h3>{{ $t('COMMON.BALANCE') }}</h3>
-          <div class="space"></div>
-          <h1>{{ balance }} <span v-if="balance != '-'" class="unit">XRP</span></h1>
-          <div class="space"></div>
-          <div>
-            <el-button type="primary" @click="reload">{{ $t('WALLET_PAGE.RELOAD_BALANCE') }}</el-button>
-          </div>
-          <div class="space"></div>
-          <div>
-            <span>{{ $t('COMMON.PUBLIC_ADDRESS') }}: {{ getWallet.address }}</span>
-          </div>
+  <div class="content">
+    <div class="flex-container middle center fill">
+      <div class="text-center">
+        <h3>{{ $t('COMMON.BALANCE') }}</h3>
+        <div class="space"></div>
+        <h1>{{ balance }} <span v-if="balance != '-'" class="unit">XRP</span></h1>
+        <div class="space"></div>
+        <div>
+          <el-button type="primary" @click="reload">{{ $t('WALLET_PAGE.RELOAD_BALANCE') }}</el-button>
+        </div>
+        <div class="space"></div>
+        <div>
+          <span>{{ $t('COMMON.PUBLIC_ADDRESS') }}: {{ getWallet.address }}</span>
         </div>
       </div>
     </div>
@@ -22,7 +19,6 @@
 </template>
 
 <script>
-import NaviBar from './NaviBar'
 import { mapGetters, mapActions } from 'vuex'
 // import sha256 from 'sha256'
 // import aes256 from 'aes256'
@@ -31,12 +27,8 @@ export default {
   name: 'wallet-page',
   data () {
     return {
-      activeIndex: '1',
       balance: '-'
     }
-  },
-  components: {
-    'navi-bar': NaviBar
   },
   created () {
     this.Loading(false)
@@ -90,12 +82,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
-  width:100%;
-  height:100%;
-}
 .content {
-  margin-top:-60px;
+  margin-top:60px;
   padding-top:60px;
   height:100%;
 

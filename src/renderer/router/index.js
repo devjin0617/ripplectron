@@ -12,13 +12,20 @@ export default new Router({
     },
     {
       path: '/wallet',
-      name: 'wallet-page',
-      component: require('@/components/WalletPage')
-    },
-    {
-      path: '/send',
-      name: 'send-page',
-      component: require('@/components/SendPage')
+      name: 'wallet-main',
+      component: require('@/components/WalletMain'),
+      children: [
+        {
+          path: '',
+          name: 'wallet-page',
+          component: require('@/components/WalletPage')
+        },
+        {
+          path: 'send',
+          name: 'send-page',
+          component: require('@/components/SendPage')
+        }
+      ]
     },
     {
       path: '*',
