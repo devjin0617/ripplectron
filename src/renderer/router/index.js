@@ -12,12 +12,11 @@ export default new Router({
     },
     {
       path: '/wallet',
-      name: 'wallet-main',
       component: require('@/components/WalletMain'),
       children: [
         {
           path: '',
-          name: 'wallet-page',
+          name: 'wallet-main',
           component: require('@/components/WalletPage')
         },
         {
