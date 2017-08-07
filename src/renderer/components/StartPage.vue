@@ -25,7 +25,9 @@ export default {
   mounted () {
     this.Loading(false)
     if (this.getWallet.address) {
-      this.$router.replace('wallet')
+      this.$router.replace({
+        name: 'wallet-main'
+      })
     }
   },
   computed: {
