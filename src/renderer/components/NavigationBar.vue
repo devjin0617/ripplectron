@@ -1,9 +1,10 @@
 <template>
   <el-menu theme="dark" :default-active="navIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-    <el-menu-item index="1">{{ $t('COMMON.BALANCE') }}</el-menu-item>
-    <el-menu-item index="2">{{ $t('COMMON.SEND') }}</el-menu-item>
-    <el-menu-item index="3">{{ $t('COMMON.GET_SECRET') }}</el-menu-item>
-    <el-menu-item index="4" class="danger-item">{{ $t('COMMON.REMOVE_WALLET') }}</el-menu-item>
+    <el-menu-item index="BALANCE">{{ $t('COMMON.BALANCE') }}</el-menu-item>
+    <el-menu-item index="SEND">{{ $t('COMMON.SEND') }}</el-menu-item>
+    <el-menu-item index="SECRET">{{ $t('COMMON.GET_SECRET') }}</el-menu-item>
+    <el-menu-item index="HISTORY">{{ $t('COMMON.HISTORY') }}</el-menu-item>
+    <el-menu-item index="REMOVE" class="danger-item">{{ $t('COMMON.REMOVE_WALLET') }}</el-menu-item>
   </el-menu>
 </template>
 
@@ -14,14 +15,10 @@ import aes256 from 'aes256'
 
 export default {
   name: 'navigation-bar',
-  props: ['active-index'],
   data () {
     return {
-      navIndex: ''
+      navIndex: 'BALANCE'
     }
-  },
-  mounted () {
-    this.navIndex = this.activeIndex
   },
   computed: {
     ...mapGetters([
@@ -34,15 +31,19 @@ export default {
     ]),
     handleSelect (index) {
       switch (index) {
-        case '1':
+        case 'BALANCE':
           // balance
-          this.$router.replace('wallet')
+          this.$router.replace({
+            name: 'wallet-main'
+          })
           break
-        case '2':
+        case 'SEND':
           // send
-          this.$router.replace('wallet/send')
+          this.$router.replace({
+            name: 'send-page'
+          })
           break
-        case '3':
+        case 'SECRET':
           // Get Secret
           this.$prompt(this.$i18n.t('COMMON.CONFIRM.INPUT_CRYPTO_KEY.DESCRIPTION'), this.$i18n.t('COMMON.CONFIRM.INPUT_CRYPTO_KEY.TITLE'), {
             confirmButtonText: this.$i18n.t('COMMON.OK'),
@@ -59,7 +60,9 @@ export default {
 
           })
           break
-        case '4':
+        case 'HISTORY':
+          break
+        case 'REMOVE':
           // remove
           this.removeWallet()
           break

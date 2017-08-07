@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="wrapper">
-      <navigation-bar :active-index="'1'"></navigation-bar>
+      <navigation-bar></navigation-bar>
       <router-view></router-view>
     </div>
   </div>
@@ -12,11 +12,6 @@ import NavigationBar from './NavigationBar'
 
 export default {
   name: 'wallet-main',
-  data () {
-    return {
-      activeIndex: '1'
-    }
-  },
   components: {
     'navigation-bar': NavigationBar
   }
