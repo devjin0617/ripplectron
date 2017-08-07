@@ -9,6 +9,7 @@ export default {
     BALANCE: '잔액',
     SEND: '전송',
     GET_SECRET: '비밀키 확인',
+    HISTORY: '내역',
     REMOVE_WALLET: '지갑 삭제',
     REMOVE: '삭제',
     MESSAGE: {

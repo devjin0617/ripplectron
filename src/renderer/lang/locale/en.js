@@ -9,6 +9,7 @@ export default {
     BALANCE: 'Balance',
     SEND: 'Send',
     GET_SECRET: 'Get Secret',
+    HISTORY: 'History',
     REMOVE_WALLET: 'Remove Wallet',
     REMOVE: 'Remove',
     MESSAGE: {
@@ -47,6 +48,10 @@ export default {
           'Are you sure you want to delete your wallet?',
           '(You can recover it even after deleting it.)'
         ]
+      },
+      SEND_COIN: {
+        TITLE: 'Send',
+        DESCRIPTION: 'Ready to XRP send?'
       }
     }
   },
@@ -66,7 +71,10 @@ export default {
     DESTINATION_TAG: 'destination tag',
     MONEY: 'Money',
     VALIDATION: {
-      EMPTY_INPUT: 'Plaese input a valid address'
+      EMPTY_INPUT: 'Please input a valid address',
+      CHECK_ADDRESS: 'Please input Ripple Address',
+      CHECK_XRP: 'Please input XRP',
+      CHECK_MONEY: 'Please input money'
     }
   }
 }
