@@ -61,6 +61,9 @@ export default {
           })
           break
         case 'HISTORY':
+          this.$router.replace({
+            name: 'history-page'
+          })
           break
         case 'REMOVE':
           // remove

@@ -23,6 +23,11 @@ export default new Router({
           path: 'send',
           name: 'send-page',
           component: require('@/components/SendPage')
+        },
+        {
+          path: 'history',
+          name: 'history-page',
+          component: require('@/components/HistoryPage')
         }
       ]
     },
