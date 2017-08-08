@@ -50,4 +50,8 @@ body, #app {
   padding-left:5px;
   padding-right:5px;
 }
+
+.el-submenu .el-menu {
+  width: 203px;
+}
 </style>

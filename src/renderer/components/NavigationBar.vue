@@ -4,6 +4,12 @@
     <el-menu-item index="SEND">{{ $t('COMMON.SEND') }}</el-menu-item>
     <el-menu-item index="SECRET">{{ $t('COMMON.GET_SECRET') }}</el-menu-item>
     <el-menu-item index="HISTORY">{{ $t('COMMON.HISTORY') }}</el-menu-item>
+    <el-submenu index="INFO">
+      <template slot="title">Info</template>
+      <el-menu-item index="APP_INFO">App Info</el-menu-item>
+      <el-menu-item index="DONATE">Donate</el-menu-item>
+      <el-menu-item index="SOURCE_CODE">Source Code</el-menu-item>
+    </el-submenu>
     <el-menu-item index="REMOVE" class="danger-item">{{ $t('COMMON.REMOVE_WALLET') }}</el-menu-item>
   </el-menu>
 </template>
