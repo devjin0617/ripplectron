@@ -57,6 +57,7 @@
     "axios": "^0.16.1",
     "electron-store": "^1.2.0",
     "element-ui": "^1.4.1",
+    "moment": "^2.18.1",
     "node-sass": "^4.5.3",
     "ripple-lib": "^0.17.7",
     "sass-loader": "^6.0.6",

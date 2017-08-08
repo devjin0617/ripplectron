@@ -17,6 +17,14 @@
   padding: 0;
 }
 
+.el-menu {
+  position: fixed;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  border-radius: 0;
+}
+
 body {
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -36,5 +44,10 @@ body, #app {
   &.center {
     justify-content: center;
   }
+}
+
+.icon-column .cell {
+  padding-left:5px;
+  padding-right:5px;
 }
 </style>

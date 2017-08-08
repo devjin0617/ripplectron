@@ -182,7 +182,7 @@ export default {
   }
 }
 .content {
-  margin-top:60px;
+  padding-top:110px;
   height:100%;
 
   .fill {

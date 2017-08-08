@@ -83,8 +83,7 @@ export default {
 
 <style lang="scss" scoped>
 .content {
-  margin-top:60px;
-  padding-top:60px;
+  padding-top: 160px;
   height:100%;
 
   .fill {
