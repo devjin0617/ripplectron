@@ -52,12 +52,14 @@ export default {
     ])
   },
   mounted () {
+    this.Loading(true)
     let url = `https://data.ripple.com/v2/accounts/${this.getWallet.address}/transactions`
     let params = {
       limit: 15,
       descending: true
     }
     this.$http.get(url, {params: params}).then(res => {
+      this.Loading(false)
       if (res.data.result === 'success') {
         console.log(res.data.transactions)
         res.data.transactions.forEach(item => {
@@ -77,6 +79,7 @@ export default {
         this.historyList = res.data.transactions
       }
     }).catch(err => {
+      this.Loading(false)
       console.log(err)
     })
   }
