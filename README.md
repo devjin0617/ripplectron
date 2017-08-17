@@ -9,8 +9,8 @@ C = User Crypto key (one-time input → send coin, check secret, load wallet)
 S = Ripple Wallet Secret
 
 HashValue = SHA256(C)
-Encryption = AES256.encode(secret:S, key:C)
-DecodeValue = AES256.decode(value:Encryption, key:C)
+Encryption = AES256.encode(secret:S, key:HashValue)
+DecodeValue = AES256.decode(value:Encryption, key:HashValue)
 ```
 
 # Develop RoadMap
