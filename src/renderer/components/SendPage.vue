@@ -150,7 +150,7 @@ export default {
             console.log('signedTransaction', signedTransaction)
             this.$ripple.submit(signedTransaction).then((test) => {
               console.log('test', test)
-              this.$message('success!', 'success', {
+              this.$message(this.$i18n.t('COMMON.MESSAGE.SUCCESS'), 'success', {
                 confirmButtonText: this.$i18n.t('COMMON.OK')
               })
             }).catch(() => {

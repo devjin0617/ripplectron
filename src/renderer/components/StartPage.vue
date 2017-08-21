@@ -74,7 +74,7 @@ export default {
             address: account.address,
             secret: aes256.encrypt(cryptoHash, account.secret)
           })
-          this.$alert(text, 'Success!', {
+          this.$alert(text, this.$i18n.t('COMMON.MESSAGE.SUCCESS'), {
             confirmButtonText: this.$i18n.t('COMMON.OK'),
             callback: action => {
               this.$router.replace('wallet')
