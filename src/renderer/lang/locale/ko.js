@@ -12,6 +12,10 @@ export default {
     HISTORY: '내역',
     REMOVE_WALLET: '지갑 삭제',
     REMOVE: '삭제',
+    INFO: '정보',
+    APP_INFO: '앱 정보',
+    DONATE: '기부',
+    SOURCE_CODE: '소스코드',
     MESSAGE: {
       REMOVED: '삭제되었습니다!',
       SUCCESS: '완료했습니다!'

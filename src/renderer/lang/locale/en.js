@@ -12,6 +12,10 @@ export default {
     HISTORY: 'History',
     REMOVE_WALLET: 'Remove Wallet',
     REMOVE: 'Remove',
+    INFO: 'Info',
+    APP_INFO: 'App Info',
+    DONATE: 'Donate',
+    SOURCE_CODE: 'Source Code',
     MESSAGE: {
       REMOVED: 'Removed!',
       SUCCESS: 'Success!'
