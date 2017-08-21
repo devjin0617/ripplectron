@@ -1,6 +1,38 @@
 # ripplectron
 
-> An electron-vue project
+> Ripple(Blockchain coin) Wallet Desktop client for vue-electron
+
+# How to save wallet key
+
+```
+C = User Crypto key (one-time input → send coin, check secret, load wallet)
+S = Ripple Wallet Secret
+
+HashValue = SHA256(C)
+Encryption = AES256.encode(secret:S, key:HashValue)
+DecodeValue = AES256.decode(value:Encryption, key:HashValue)
+```
+
+# Develop RoadMap
+
+- [x] Create Wallet
+- [x] get Balance
+- [x] Send Coin (with Destination Tag)
+- [x] get History
+- [ ] Auto Update
+- [ ] Donate Button
+- [ ] Ripple Game
+- [ ] Mac Version
+  - [x] Test Version
+  - [ ] Production
+- [ ] Windows Version
+  - [ ] Test Version
+  - [ ] Production
+- [ ] Linux Version
+  - [ ] Test Version
+  - [ ] Production
+- [ ] Android Version
+- [ ] iOS Version
 
 ![icon](https://github.com/devjin0617/ripplectron/blob/master/images/icon.png?raw=true)
 ![start](https://github.com/devjin0617/ripplectron/blob/master/images/image_0.png?raw=true)
