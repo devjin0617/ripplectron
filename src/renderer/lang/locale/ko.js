@@ -16,6 +16,9 @@ export default {
     APP_INFO: '앱 정보',
     DONATE: '기부',
     SOURCE_CODE: '소스코드',
+    VALUE: '금액',
+    DATE: '날짜',
+    ADDRESS: '주소',
     MESSAGE: {
       REMOVED: '삭제되었습니다!',
       SUCCESS: '완료했습니다!'
@@ -80,5 +83,8 @@ export default {
       CHECK_XRP: '전송할 XRP를 입력해주세요.',
       CHECK_MONEY: '금액을 확인해주세요.'
     }
+  },
+  HISTORY_PAGE: {
+    EMPTY_LIST: '거래내역이 없습니다.'
   }
 }

@@ -5,7 +5,7 @@
         :data="historyList"
         style="width: 100%"
         :border="true"
-        empty-text="거래내역을 찾을 수 없습니다.">
+        :empty-text="$t('HISTORY_PAGE.EMPTY_HISTORY')">
         <el-table-column
           width="40"
           class-name="icon-column">
@@ -15,17 +15,17 @@
         </el-table-column>
         <el-table-column
           prop="value"
-          label="value"
+          :label="$t('COMMON.VALUE')"
           width="100">
         </el-table-column>
         <el-table-column
           prop="relativeTime"
-          label="date"
-          width="110">
+          :label="$t('COMMON.DATE')"
+          width="150">
         </el-table-column>
         <el-table-column
           prop="tx.Destination"
-          label="address">
+          :label="$t('COMMON.ADDRESS')">
           <template scope="scope">
             <span class="small-text" v-if="scope.row.state == 'receive'">{{ scope.row.tx.Account }}</span>
             <span class="small-text" v-else>{{ scope.row.tx.Destination }}</span>

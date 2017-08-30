@@ -16,6 +16,9 @@ export default {
     APP_INFO: 'App Info',
     DONATE: 'Donate',
     SOURCE_CODE: 'Source Code',
+    VALUE: 'value',
+    DATE: 'date',
+    ADDRESS: 'address',
     MESSAGE: {
       REMOVED: 'Removed!',
       SUCCESS: 'Success!'
@@ -80,5 +83,8 @@ export default {
       CHECK_XRP: 'Please input XRP',
       CHECK_MONEY: 'Please input money'
     }
+  },
+  HISTORY_PAGE: {
+    EMPTY_LIST: 'No transaction history.'
   }
 }
