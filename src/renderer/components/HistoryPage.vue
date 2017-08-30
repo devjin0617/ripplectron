@@ -5,7 +5,7 @@
         :data="historyList"
         style="width: 100%"
         :border="true"
-        :empty-text="$t('HISTORY_PAGE.EMPTY_HISTORY')">
+        :empty-text="$t('HISTORY_PAGE.EMPTY_LIST')">
         <el-table-column
           width="40"
           class-name="icon-column">
