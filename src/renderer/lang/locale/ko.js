@@ -44,7 +44,7 @@ export default {
       },
       INPUT_CRYPTO_KEY: {
         TITLE: '암호화',
-        DESCRIPTION: '리플지갑을 암호화할 임의의 키를 입력하세요. (리플 비밀키가 아닙니다)',
+        DESCRIPTION: '리플지갑 암호화 키를 입력하세요. (리플 비밀키가 아닙니다)',
         VALIDATION: {
           TEXT: '숫자나 문자열을 입력하세요. (6~32자 사이로 이루어져야 합니다.)'
         }
