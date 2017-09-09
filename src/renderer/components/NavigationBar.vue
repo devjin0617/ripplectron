@@ -77,6 +77,12 @@ export default {
           })
           break
         case 'DONATE':
+          this.$confirm('20XRP를 기부하시겠습니까? 그 이상의 기부금은 받지 않습니다.', '기부', {
+            confirmButtonText: '기부',
+            cancelButtonText: '취소'
+          }).then(params => {
+            this.$alert('기부버튼 클릭')
+          })
           break
         case 'SOURCE_CODE':
           break
