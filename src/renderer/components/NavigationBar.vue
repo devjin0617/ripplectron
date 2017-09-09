@@ -73,7 +73,7 @@ export default {
           break
         case 'APP_INFO':
           this.$alert('test version', 'info', {
-            confirmButtonText: t('COMMON.OK')
+            confirmButtonText: this.$i18n.t('COMMON.OK')
           })
           break
         case 'DONATE':
