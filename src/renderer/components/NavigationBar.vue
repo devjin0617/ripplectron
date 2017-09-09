@@ -85,6 +85,7 @@ export default {
           })
           break
         case 'SOURCE_CODE':
+          this.$electron.shell.openExternal('https://github.com/devjin0617/ripplectron')
           break
         case 'REMOVE':
           // remove
