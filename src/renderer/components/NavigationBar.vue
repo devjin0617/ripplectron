@@ -71,6 +71,15 @@ export default {
             name: 'history-page'
           })
           break
+        case 'APP_INFO':
+          this.$alert('test version', 'info', {
+            confirmButtonText: t('COMMON.OK')
+          })
+          break
+        case 'DONATE':
+          break
+        case 'SOURCE_CODE':
+          break
         case 'REMOVE':
           // remove
           this.removeWallet()
